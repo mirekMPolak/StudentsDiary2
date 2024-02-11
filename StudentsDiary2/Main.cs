@@ -155,7 +155,7 @@ namespace StudentsDiary
             cbGroupsFiltering.ValueMember = "GroupId";
             cbGroupsFiltering.DisplayMember = "GroupName";
             cbGroupsFiltering.DataSource = groups;
-            if (setId > 2 && !groups.Exists(x => x.GroupId == setId))
+            if (setId == 0 || (setId > 2 && !groups.Exists(x => x.GroupId == setId)))
             {
                 setId = 1;
             }
