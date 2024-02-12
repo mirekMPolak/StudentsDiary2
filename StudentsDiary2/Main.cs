@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.VisualStyles;
 using StudentsDiary.Properties;
 
 
@@ -28,6 +29,7 @@ namespace StudentsDiary
         public Main()
         {
             InitializeComponent();
+            SetGroupsOnFirstRun();
             RefreshCbGroupsFiltering(1);
             RefreshDiary();
             SetColumnsHeader();
@@ -160,6 +162,17 @@ namespace StudentsDiary
                 setId = 1;
             }
             cbGroupsFiltering.SelectedValue = setId;
+        }
+
+        private void SetGroupsOnFirstRun()
+        {
+            var groups = _fileHelperOfGroups.DeserializeFromFile();
+            if (groups.Count == 0)
+            {
+                groups.Add(new Group() { GroupId = 1, GroupName = "* wszyscy *" });
+                groups.Add(new Group() { GroupId = 2, GroupName = "* nieprzypisany *" });
+                _fileHelperOfGroups.SerializeToFile(groups);
+            }
         }
     }
 }
